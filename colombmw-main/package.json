@@ -1,0 +1,22 @@
+{
+    "name": "colombmw",
+    "version": "1.0.0",
+    "description": "Descripción de tu proyecto",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "keywords": [],
+    "author": "Tu Nombre",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^5.1.1",
+        "cors": "^2.8.5",
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "jsonwebtoken": "^9.0.2",
+        "mysql2": "^3.12.0",
+        "node-cron": "^3.0.3",
+        "pg": "^8.13.1"
+    }
+}

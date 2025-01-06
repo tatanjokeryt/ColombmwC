@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COLOMBMW - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark': '#1a1a1a',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #2563eb, #1d4ed8);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradient 3s linear infinite;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <div class="min-h-screen flex items-center justify-center">
+        <!-- Contenedor principal -->
+        <div class="max-w-md w-full mx-4">
+            <!-- Logo/Título -->
+            <div class="text-center mb-8 animate__animated animate__fadeIn">
+                <div class="relative inline-block">
+                    <h1 class="gradient-text text-5xl font-extrabold tracking-tight mb-2">
+                        COLOMBMW
+                    </h1>
+                    <div class="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 rounded-full"></div>
+                </div>
+                <p class="text-gray-400 mt-4">CONVIERTETE EN VIP</p>
+            </div>
+
+            <!-- Tarjeta de autenticación -->
+            <div class="bg-gray-800 rounded-xl shadow-2xl p-8 animate__animated animate__fadeInUp border border-gray-700">
+                <!-- Tabs -->
+                <div class="flex mb-8 border-b border-gray-700">
+                    <button onclick="toggleTab('login')" id="loginTab" 
+                            class="flex-1 py-2 text-center font-semibold transition-all duration-200 text-blue-400 border-b-2 border-blue-400">
+                        Iniciar Sesión
+                    </button>
+                    <button onclick="toggleTab('register')" id="registerTab"
+                            class="flex-1 py-2 text-center font-semibold transition-all duration-200 text-gray-400 hover:text-gray-300">
+                        Registrarse
+                    </button>
+                </div>
+
+                <!-- Formulario de Login -->
+                <form id="loginForm" class="space-y-4" onsubmit="handleLogin(event)">
+                    <div>
+                        <input type="text" id="loginPhone" 
+                               class="w-full px-4 py-3 rounded-lg bg-gray-700 border-2 border-gray-600 text-gray-100 focus:border-blue-500 focus:outline-none transition-all"
+                               placeholder="Número de teléfono" required>
+                    </div>
+                    <div>
+                        <input type="password" id="loginPassword" 
+                               class="w-full px-4 py-3 rounded-lg bg-gray-700 border-2 border-gray-600 text-gray-100 focus:border-blue-500 focus:outline-none transition-all"
+                               placeholder="Contraseña" required>
+                    </div>
+                    <button type="submit" 
+                            class="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-3 rounded-lg font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+                        Iniciar Sesión
+                    </button>
+                </form>
+
+                <!-- Formulario de Registro -->
+                <form id="registerForm" class="hidden space-y-4" onsubmit="handleRegister(event)">
+                    <div>
+                        <input type="text" id="registerPhone" 
+                               class="w-full px-4 py-3 rounded-lg bg-gray-700 border-2 border-gray-600 text-gray-100 focus:border-blue-500 focus:outline-none transition-all"
+                               placeholder="Número de teléfono" required>
+                    </div>
+                    <div>
+                        <input type="password" id="registerPassword" 
+                               class="w-full px-4 py-3 rounded-lg bg-gray-700 border-2 border-gray-600 text-gray-100 focus:border-blue-500 focus:outline-none transition-all"
+                               placeholder="Contraseña" required>
+                    </div>
+                    <div>
+                        <input type="text" id="invitationCode" 
+                               class="w-full px-4 py-3 rounded-lg bg-gray-700 border-2 border-gray-600 text-gray-100 focus:border-blue-500 focus:outline-none transition-all"
+                               placeholder="Código de invitación (Opcional)">
+                    </div>
+                    <button type="submit" 
+                            class="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white py-3 rounded-lg font-semibold hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200">
+                        Registrarse
+                    </button>
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center mt-6 text-gray-400 text-sm">
+                <p>© 2024 COLOMBMW. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleTab(tab) {
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const loginTab = document.getElementById('loginTab');
+            const registerTab = document.getElementById('registerTab');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+                loginTab.classList.add('text-blue-400', 'border-b-2', 'border-blue-400');
+                loginTab.classList.remove('text-gray-400', 'hover:text-gray-300');
+                registerTab.classList.remove('text-blue-400', 'border-b-2', 'border-blue-400');
+                registerTab.classList.add('text-gray-400', 'hover:text-gray-300');
+            } else {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                registerTab.classList.add('text-blue-400', 'border-b-2', 'border-blue-400');
+                registerTab.classList.remove('text-gray-400', 'hover:text-gray-300');
+                loginTab.classList.remove('text-blue-400', 'border-b-2', 'border-blue-400');
+                loginTab.classList.add('text-gray-400', 'hover:text-gray-300');
+            }
+        }
+
+        // Función para manejar el login
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const phone_number = document.getElementById('loginPhone').value;
+            const password = document.getElementById('loginPassword').value;
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ phone_number, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    window.location.href = '/dashboard';
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message || 'Error al iniciar sesión'
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error de conexión'
+                });
+            }
+        }
+
+        // Función para manejar el registro
+        async function handleRegister(event) {
+            event.preventDefault();
+            
+            const phone_number = document.getElementById('registerPhone').value;
+            const password = document.getElementById('registerPassword').value;
+            const invitation_code = document.getElementById('invitationCode').value;
+
+            try {
+                const response = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ phone_number, password, invitation_code })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert('Registro exitoso');
+                    toggleTab('login');
+                } else {
+                    alert(data.message || 'Error en el registro');
+                }
+            } catch (error) {
+                alert('Error de conexión');
+            }
+        }
+    </script>
+</body>
+</html>
